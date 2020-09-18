@@ -1,0 +1,23 @@
+#cloud-config 
+disk_setup:
+    - /dev/nvme0n1:
+          table_type: 'mbr'
+          layout: True
+          overwrite: False
+    - /dev/nvme1n1:
+          table_type: 'mbr'
+          layout: True
+          overwrite: False
+fs_setup:
+    - filesystem: ext4
+      device: '/dev/nvme0n1'
+      partition: auto
+    - filesystem: ext4
+      device: '/dev/nvme1n1'
+      partition: auto
+random_seed:
+    file: /dev/urandom
+    command: ["pollinate", "--server=https://entropy.ubuntu.com/"]
+    command_required: true
+runcmd:
+    - [ /opt/cortex/ops/scripts/ops-cortex-init.sh, /dev/sdh, /dev/sdi ]
