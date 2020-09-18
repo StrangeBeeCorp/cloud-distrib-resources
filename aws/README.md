@@ -2,17 +2,17 @@
 
 ## Overview 
 
-The sample Terraform code in this repository allows the creation of a complete SecOps VPC to host your TheHive and Cortex instance and expose them using a load balancer.
+The sample Terraform code in this repository allows the creation of a complete SecOps VPC to host your TheHive and Cortex instances and expose them using a load balancer.
 
 ![SecOps VPC overview](assets/ALB.png)
 
 The sample code is organised in five folders:
 
 * [ug-secops-vpc](ug-secops-vpc/) --> to create and manage the SecOps VPC
-* [ug-secops-thehive-new](ug-secops-thehive-new/) --> to deploy a new TheHive instance with an empty database
-* [ug-secops-thehive-migration](ug-secops-thehive-migration/) --> to deploy a new TheHive instance with existing data (upgrade / replace scenario)
-* [ug-secops-cortex-new](ug-secops-cortex-new/) --> to deploy a new Cortex instance with an empty database
-* [ug-secops-cortex-migration](ug-secops-cortex-migration/) --> to deploy a new Cortex instance with existing data (upgrade / replace scenario)
+* [ug-secops-thehive-new](ug-secops-thehive-new/) --> to launch a new TheHive instance with an empty database
+* [ug-secops-thehive-migration](ug-secops-thehive-migration/) --> to launch a new TheHive instance with existing data (upgrade / replace scenario)
+* [ug-secops-cortex-new](ug-secops-cortex-new/) --> to launch a new Cortex instance with an empty database
+* [ug-secops-cortex-migration](ug-secops-cortex-migration/) --> to launch a new Cortex instance with existing data (upgrade / replace scenario)
 
 This code organisation allows the creation of all required VPC resources if you do not already operate a VPC (or if you want to create a new one for your SecOps needs), independently from TheHive and Cortex deployments.
 

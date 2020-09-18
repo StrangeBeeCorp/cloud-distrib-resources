@@ -31,14 +31,14 @@ Since we will be building a new VPC from scratch, we will use AWS-managed servic
 + **Amazon Route53** to manage your public DNS records. You will need Route53 to manage at least one public DNS zone, but not necessarily a whole domain name. It can be a subdomain of an existing domain, such as *aws.mydomain.com*. Having Route53 manage your DNS records enables a lot of automation such as automatic certificate validation and renewal, automatic DNS registration of your load balancer and so on. We also recommend you use Route53 to manage a private DNS zone attached to your VPC to enable local name resolution within the private subnet (this is how TheHive can easily find its Cortex instance and it allows to SSH into private instances without having to bother with their private IPs).
 
 ## Security Groups
-There are no default iptables rules implemented in the AMIs for either TheHive or Cortex (no OS-based IP filtering). Since we built the AMIs to be replaceable at each application update, somewhat like a container, we recommend limiting OS customisations to benefit from the easy update process. For that reason, filtering should be based on security groups or Network ACLs only.
+There are no default iptables rules implemented in the AMIs for either TheHive or Cortex (no OS-based IP filtering). Since we built the AMIs to be replaceable at each application update, somewhat like containers, we recommend limiting OS customisations to benefit from the easy update process. For that reason, filtering should be based on security groups or Network ACLs only.
 
 Keep in mind that the applications are listening on http, *not https*. Even though the default AMI security groups allow incoming traffic on the http ports (TCP 9000 for TheHive, TCP 9001 for Cortex), be careful not to expose them on a public-facing network interface.
 
 The required security groups depicted above are created automatically along with the SecOps VPC and and fully documented in the [AMI user guides](https://strangebee.com/aws)
 
 ## Bastion host
-We launch a small instance to act as a bastion host. **Bastion host hardening is not covered in this guide** but you should definitely harden this host going forward if you will use it in a production context. We do however strictly limit access to and from this host.
+We launch a small instance to act as a bastion host. **Bastion host hardening is not performed automatically** but you should definitely harden this host going forward if you will use it in a production context. We do however strictly limit access to and from this host.
 
 The bastion host will run the latest Ubuntu AMI from Canonical. The default sudoer user is *ubuntu*.
 
@@ -49,7 +49,7 @@ While most VPC resources will be provisioned with Terraform, there are a **two e
 * The Route53 public DNS zone to register the load balancer
 * The ACM (AWS Certificate Manager) certificate for the https listener
 
-You must provide the ARNs for these resources before creating the VPC (populate the variables with the associated values).
+You must provide the ARNs for these resources before creating the VPC (populate the Terraform variables with the associated values).
 
 These resources could be created with Terraform but we considered it made more sense to manage them independently to avoid destroying them along with the VPC since they can take a while to create / validate / propagate. Also, your public DNS zone might be shared with other services!
 
