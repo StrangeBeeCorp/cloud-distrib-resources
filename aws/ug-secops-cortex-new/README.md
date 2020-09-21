@@ -2,7 +2,7 @@
 
 # Deploying Cortex with Terraform - launch new instance with an empty database
 
-Check our [detailed Medium post]() for more information on using this sample code.
+Check our [detailed Medium post](https://medium.com/strangebee-hands-on/thehive-and-cortex-on-aws-ami-tutorials-part-2-launching-automatically-with-terraform-18459c5b9411) for more information on using this sample code.
 
 The code itself is documented at lenght in our [AMI user guides](https://strangebee.com/aws).
 

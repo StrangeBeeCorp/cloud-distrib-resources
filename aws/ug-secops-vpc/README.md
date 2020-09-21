@@ -1,6 +1,6 @@
 # Creating a new SecOps VPC
 
-Check our [detailed Medium post]() for more information on using this sample code.
+Check our [detailed Medium post](https://medium.com/strangebee-hands-on/thehive-and-cortex-on-aws-ami-tutorials-part-1-deploying-a-secops-vpc-7f1981ce72a) for more information on using this sample code.
 
 The code itself is documented at lenght in our [AMI user guides](https://strangebee.com/aws).
 
