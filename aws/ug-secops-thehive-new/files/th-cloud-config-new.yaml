@@ -4,9 +4,16 @@ disk_setup:
           table_type: 'mbr'
           layout: True
           overwrite: False
+    - /dev/nvme1n1:
+          table_type: 'mbr'
+          layout: True
+          overwrite: False
 fs_setup:
     - filesystem: ext4
       device: '/dev/nvme0n1'
+      partition: auto
+    - filesystem: ext4
+      device: '/dev/nvme1n1'
       partition: auto
 random_seed:
     file: /dev/urandom
