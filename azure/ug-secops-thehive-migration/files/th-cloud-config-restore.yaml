@@ -1,0 +1,3 @@
+#cloud-config 
+runcmd:
+    - /opt/thehive/ops/scripts/ops-thehive-restore.sh /dev/sdh

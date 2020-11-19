@@ -1,0 +1,23 @@
+#cloud-config 
+disk_setup:
+  /dev/disk/azure/scsi1/lun0:
+    table_type: gpt
+    layout: True
+    overwrite: True
+  /dev/disk/azure/scsi1/lun1:
+    table_type: gpt
+    layout: True
+    overwrite: True
+fs_setup:
+  - device: /dev/disk/azure/scsi1/lun0
+    partition: none
+    filesystem: ext4
+  - device: /dev/disk/azure/scsi1/lun1
+    partition: none
+    filesystem: ext4
+random_seed:
+    file: /dev/urandom
+    command: ["pollinate", "--server=https://entropy.ubuntu.com/"]
+    command_required: true
+runcmd:
+    - /opt/cortex/ops/scripts/ops-cortex-init.sh /dev/sdh /dev/sdi
