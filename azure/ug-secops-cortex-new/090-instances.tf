@@ -36,8 +36,6 @@ resource "azurerm_private_dns_a_record" "secops-private-dns-cortex-record" {
 }
 
 # Create cortex VM instance
-# You must accept the marketplace terms using the following command before launching your first TheHive instance:
-# az vm image terms accept --urn strangebee1595948424730:cortex-3:cortex3:3.1.0
 resource "azurerm_virtual_machine" "secops-cortex-instance" {
   name                = var.secops-computer-name
   location            = var.secops-location 

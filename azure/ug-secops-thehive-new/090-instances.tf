@@ -36,8 +36,6 @@ resource "azurerm_private_dns_a_record" "secops-private-dns-thehive-record" {
 }
 
 # Create thehive VM instance
-# You must accept the marketplace terms using the following command before launching your first TheHive instance:
-# az vm image terms accept --urn strangebee1595948424730:thehive-3:thehive3:3.5.0
 resource "azurerm_virtual_machine" "secops-thehive-instance" {
   name                = var.secops-computer-name
   location            = var.secops-location 
