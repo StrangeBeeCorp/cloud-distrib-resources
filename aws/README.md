@@ -6,11 +6,13 @@ The sample Terraform code in this repository allows the creation of a complete S
 
 ![SecOps VPC overview](assets/ALB.png)
 
-The sample code is organised in five folders:
+The sample code is organised in seven folders:
 
 * [ug-secops-vpc](ug-secops-vpc/) --> to create and manage the SecOps VPC
-* [ug-secops-thehive-new](ug-secops-thehive-new/) --> to launch a new TheHive instance with an empty database
-* [ug-secops-thehive-migration](ug-secops-thehive-migration/) --> to launch a new TheHive instance with existing data (upgrade / replace scenario)
+* [ug-secops-thehive-new](ug-secops-thehive-new/) --> to launch a new TheHive v3 instance with an empty database
+* [ug-secops-thehive-migration](ug-secops-thehive-migration/) --> to launch a new TheHive v3 instance with existing data (upgrade / replace scenario)
+* [ug-secops-thehive4-new](ug-secops-thehive4-new/) --> to launch a new TheHive v4 instance with an empty database
+* [ug-secops-thehive4-migration](ug-secops-thehive4-migration/) --> to launch a new TheHive v4 instance with existing data (upgrade / replace scenario)
 * [ug-secops-cortex-new](ug-secops-cortex-new/) --> to launch a new Cortex instance with an empty database
 * [ug-secops-cortex-migration](ug-secops-cortex-migration/) --> to launch a new Cortex instance with existing data (upgrade / replace scenario)
 

@@ -52,7 +52,7 @@ data "aws_ami" "secops_thehive_ami" {
 
   filter {
     name   = "name"
-    values = ["TheHive3_*"]
+    values = ["TheHive4_*"]
   }
 
   filter {

@@ -30,3 +30,4 @@ override.tf.json
 
 # macOS DS_Store files
 **/.DS_Store
+*.local.tfvars

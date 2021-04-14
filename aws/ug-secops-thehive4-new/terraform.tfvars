@@ -13,10 +13,7 @@ strangebee_account_number = "339624944083"
 
 # SSH keypair to access TheHive instance
 secops_key_pair_name = "thehive-secops-key"
-secops_key_pair_public_key = "ssh-rsa AAAAB3NzaC.... user@mydomain.com"
-
-# ID of the existing TheHive EBS data volume to snapshot
-secops-thehive-data-volume_id = "vol-012345abc"
+secops_key_pair_public_key = "ssh-rsa AAAAB3NzaC... user@mydomain.com"
 
 # Private VPC DNS zone to create TheHive record into (for easy SSH connection)
 secops_r53_private_dns_zone_name = "secops.cloud"

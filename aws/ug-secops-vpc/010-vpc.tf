@@ -7,7 +7,7 @@
 # aws_access_key_id=AKIAIOSFODNN7EXAMPLE
 # aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 provider "aws" {
-  version = "~> 2.0"
+  version = "~> 3.0"
   profile = var.secops_iam_profile
   region  = var.secops_region
 }
