@@ -1,5 +1,6 @@
 # Resource group name
 secops-resource-group-name = "SecOps"
+secops-dns-resource-group-name = "SharedResources"
 # Target region
 secops-location = "France Central"
 

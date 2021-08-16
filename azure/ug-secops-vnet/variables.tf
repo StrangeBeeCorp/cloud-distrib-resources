@@ -2,6 +2,10 @@ variable "secops-resource-group-name" {
   type = string
   description = "secops resource group name"
 }
+variable "secops-dns-resource-group-name" {
+  type = string
+  description = "secops resource group name for DNS public zone (in case it is shared with other resources)"
+}
 variable "secops-location" {
   type = string
   description = "secops Azure Location"

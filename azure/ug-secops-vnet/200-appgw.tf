@@ -169,7 +169,7 @@ resource "azurerm_application_gateway" "secops-appgw" {
 resource "azurerm_dns_a_record" "secops-dns-record-appgw-thehive" {
   name                = "thehive"
   zone_name           = var.secops-dns-zone-name
-  resource_group_name  = var.secops-resource-group-name
+  resource_group_name  = var.secops-dns-resource-group-name
   ttl                 = 300
   target_resource_id  = azurerm_public_ip.secops-appgw-public-ip.id
   tags = {
@@ -182,7 +182,7 @@ resource "azurerm_dns_a_record" "secops-dns-record-appgw-thehive" {
 resource "azurerm_dns_a_record" "secops-dns-record-appgw-cortex" {
   name                = "cortex"
   zone_name           = var.secops-dns-zone-name
-  resource_group_name  = var.secops-resource-group-name
+  resource_group_name  = var.secops-dns-resource-group-name
   ttl                 = 300
   target_resource_id  = azurerm_public_ip.secops-appgw-public-ip.id
   tags = {

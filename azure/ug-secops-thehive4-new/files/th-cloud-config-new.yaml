@@ -8,6 +8,10 @@ disk_setup:
     table_type: gpt
     layout: True
     overwrite: True
+  /dev/disk/azure/scsi1/lun2:
+    table_type: gpt
+    layout: True
+    overwrite: True
 fs_setup:
   - device: /dev/disk/azure/scsi1/lun0
     partition: auto
@@ -15,5 +19,8 @@ fs_setup:
   - device: /dev/disk/azure/scsi1/lun1
     partition: auto
     filesystem: ext4
+  - device: /dev/disk/azure/scsi1/lun2
+    partition: auto
+    filesystem: ext4
 runcmd:
-    - /opt/cortex/ops/scripts/ops-cortex-init.sh /dev/sdh /dev/sdi
+    - /opt/thehive/ops/scripts/ops-thehive4-init.sh /dev/sdh /dev/sdi /dev/sdj

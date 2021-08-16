@@ -19,11 +19,16 @@ secops-appgw-frontend-public-subnet = "10.1.0.0/16"
 secops-thehive-backend-pool-name = "secops-thehive-backend-pool"
 
 # TheHive instance
-secops-computer-name = "secops-thehive3"
+secops-computer-name = "secops-thehive4"
 secops-vm-size = "Standard_D4s_v4"
 secops-admin-user = "ubuntu"
 secops-public-key-path = "~/.ssh/id_rsa.pub"
-secops-data-disk-name = "secops-thehive3-es-data-disk"
+secops-data-disk-name = "secops-thehive4-data-disk"
+secops-data-disk-size = "16"
+secops-storage-disk-name = "secops-thehive4-storage-disk"
+secops-storage-disk-size = "8"
+secops-index-disk-name = "secops-thehive4-index-disk"
+secops-index-disk-size = "4"
 # Managed OS Disk type - possible values are either Standard_LRS, StandardSSD_LRS, Premium_LRS
 secops-data-disk-type = "Premium_LRS"
 secops-os-disk-type   = "Premium_LRS"

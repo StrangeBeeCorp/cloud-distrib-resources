@@ -20,7 +20,7 @@ secops-cortex-backend-pool-name = "secops-cortex-backend-pool"
 
 # TheHive instance
 secops-computer-name = "secops-cortex3"
-secops-vm-size = "Standard_D2s_v3"
+secops-vm-size = "Standard_D4s_v4"
 secops-admin-user = "ubuntu"
 secops-public-key-path = "~/.ssh/id_rsa.pub"
 secops-data-disk-name = "secops-cortex3-es-data-disk"

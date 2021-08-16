@@ -15,9 +15,5 @@ fs_setup:
     - filesystem: ext4
       device: '/dev/nvme1n1'
       partition: auto
-random_seed:
-    file: /dev/urandom
-    command: ["pollinate", "--server=https://entropy.ubuntu.com/"]
-    command_required: true
 runcmd:
     - [ /opt/thehive/ops/scripts/ops-thehive-init.sh, /dev/sdh ]

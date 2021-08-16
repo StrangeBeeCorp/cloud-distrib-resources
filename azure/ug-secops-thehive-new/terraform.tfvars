@@ -20,7 +20,7 @@ secops-thehive-backend-pool-name = "secops-thehive-backend-pool"
 
 # TheHive instance
 secops-computer-name = "secops-thehive3"
-secops-vm-size = "Standard_D2s_v3"
+secops-vm-size = "Standard_D4s_v4"
 secops-admin-user = "ubuntu"
 secops-public-key-path = "~/.ssh/id_rsa.pub"
 secops-data-disk-name = "secops-thehive3-es-data-disk"
