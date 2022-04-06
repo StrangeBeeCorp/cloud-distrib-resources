@@ -1,5 +1,9 @@
 # Creating a new SecOps VPC
 
+Check our [detailed Medium post](https://medium.com/strangebee-hands-on/thehive-and-cortex-on-aws-ami-tutorials-part-1-deploying-a-secops-vpc-7f1981ce72a) for more information on using this sample code.
+
+The code itself is documented at lenght in our [AMI user guides](https://strangebee.com/aws).
+
 If you do not already have a VPC at hand to deploy TheHive and Cortex into, using our sample code will allow you to build a production-ready VPC very easily.
 
 # Overview
@@ -31,7 +35,7 @@ There are no default iptables rules implemented in the AMIs for either TheHive o
 
 Keep in mind that the applications are listening on http, *not https*. Even though the default AMI security groups allow incoming traffic on the http ports (TCP 9000 for TheHive, TCP 9001 for Cortex), be careful not to expose them on a public-facing network interface.
 
-The required security groups depicted above are created automatically along with the SecOps VPC.
+The required security groups depicted above are created automatically along with the SecOps VPC and and fully documented in the [AMI user guides](https://strangebee.com/aws)
 
 ## Bastion host
 We launch a small instance to act as a bastion host. **Bastion host hardening is not performed automatically** but you should definitely harden this host going forward if you will use it in a production context. We do however strictly limit access to and from this host.
@@ -40,13 +44,16 @@ The bastion host will run the latest Ubuntu AMI from Canonical. The default sudo
 
 # SecOps VPC prerequisites
 
-While most VPC resources will be provisioned with Terraform, there is **one exception that should be created beforehand**:
+While most VPC resources will be provisioned with Terraform, there are a **two exceptions that should be created beforehand**:
 
-* The Route53 public DNS zone to register the load balancer and to automatically validate the ACM certificates
+* The Route53 public DNS zone to register the load balancer
+* The ACM (AWS Certificate Manager) certificate for the https listener
 
-You must provide the DNS hosted zone name before creating the VPC (set the `secops_r53_public_dns_zone_name` Terraform variable with the zone name).
+You must provide the ARNs for these resources before creating the VPC (populate the Terraform variables with the associated values).
 
-> We will use a single load balancer, a single https listener and a single certificate for both TheHive and Cortex. Since the default configuration is to route TheHive and Cortex queries based on the host name, make sure you provide both TheHive and Cortex host names in the `secops_r53_records_san` Terraform variable so they are provisionned both in the load balancer listener certificate and DNS records.
+These resources could be created with Terraform but we considered it made more sense to manage them independently to avoid destroying them along with the VPC since they can take a while to create / validate / propagate. Also, your public DNS zone might be shared with other services!
+
+We will use a single load balancer and a single https listener for both TheHive and Cortex. While multiple certificates can be attached to the ALB https listener (using Server Name Indication), our sample code will use a single certificate, so remember to include both hostnames for TheHive and Cortex when you create it. Otherwise, you will need to attach both certificates to the listener and manage the SNI configuration yourself.
 
 ---
-Terraform compatibility: v1.x
+Terraform compatibility: v0.12.x
