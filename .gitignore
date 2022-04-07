@@ -32,3 +32,4 @@ override.tf.json
 **/.DS_Store
 *.local.tfvars
 *.auto.tfvars
+*.terraform.lock.hcl
