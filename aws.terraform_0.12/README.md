@@ -1,6 +1,6 @@
 # AWS sample code
 
-**This Terraform 0.12 code is now obsolete - please use the Terraform 1.x code in the [aws](../aws/README.md) folder which is compatible with both TheHive v4/v5 and Cortex. This code remains available for reference purposes only and will not be maintained anymore.**
+**This Terraform 0.12 code is now obsolete - please use the Terraform 1.x code in the [aws](../aws/README.md) folder which is compatible with both TheHive and Cortex. This code remains available for reference purposes only and will not be maintained anymore.**
 
 ## Overview 
 

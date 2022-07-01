@@ -15,7 +15,6 @@ The vnet will include:
 - **Public DNS records** for TheHive and Cortex to point to the Application Gateway 
 - A **bastion host** to SSH into our TheHive and Cortex instance hosted in the private subnet
 - A **Network Virtual Appliance** to allow Internet access for our instances in the private subnet through a NAT gateway
-- Four **storage disks to store the persistent TheHive and Cortex data**. *These disks could be created alongside the instances but creating them with the vnet further limits the risk of accidental destruction and data loss when updating or replacing the instances.*
 
 ## Network Security Groups
 There are no default iptables rules implemented in the images for either TheHive or Cortex (no OS-based IP filtering). Since we built them to be replaceable at each application update, somewhat like containers, we recommend limiting OS customisations to benefit from the easy update process. For that reason, filtering should be based on network security groups only.
@@ -35,12 +34,12 @@ While all required security groups depicted above are automatically deployed wit
 ## Bastion host
 We launch an instance to act as a bastion host (defaults to B2s - 2 vCPUs / 4 GiB RAM). **Bastion host hardening is not performed automatically** but you should definitely harden this host going forward if you will use it in a production context. We do however strictly limit access to and from this host.
 
-The bastion host will run the latest Ubuntu image from Canonical. The default sudoer user is *azureuser*.
+The bastion host will run the latest Ubuntu image from Canonical. The default sudoer user is *ubuntu*.
 
 ## myNVA host
 We launch an instance to act as a network virtual appliance (NVA - defaults to DS2_v2 - 2 vCPUs / 7 GiB RAM / Accelerated networking supported). This instances makes it possible to NAT outgoing traffic from the private subnet. **NVA host hardening is not performed automatically** but you should definitely harden this host going forward if you will use it in a production context. We do however strictly limit access to and from this host.
 
-The NVA host will run the latest Ubuntu image from Canonical. The default sudoer user is *azureuser*.
+The NVA host will run the latest Ubuntu image from Canonical. The default sudoer user is *ubuntu*.
 
 ## SecOps vnet prerequisites
 
@@ -48,7 +47,7 @@ While most vnet resources will be provisioned with Terraform, there are **some e
 - The Azure account and subscription must already exist, along with the target resource group
 - The public DNS zone to register the Application Gateway
 - The service principal to build the environment (e.g *app-name*) with **Owner** Azure Role on the subscription
-- The keyvault and associated certificate for the https listener
+- The keyvault and associated certificate for the https listeners
 
 You must provide the information for these resources before creating the vnet (populate the Terraform variables with the associated values).
 
@@ -67,6 +66,7 @@ export ARM_CLIENT_ID="xxxx-xxxx-xxxx-xxxx-xxxx"
 export ARM_CLIENT_SECRET="xxxx-xxxx-xxxx-xxxx-xxxx"
 export ARM_TENANT_ID="xxxx-xxxx-xxxx-xxxx-xxxx"
 export TF_VAR_thehive_key_vault_certificate_secret_id="xxxx-xxxx-xxxx-xxxx-xxxx"
+export TF_VAR_cortex_key_vault_certificate_secret_id="xxxx-xxxx-xxxx-xxxx-xxxx"
 ```
 
 Where to find the associated values:
@@ -75,6 +75,7 @@ Where to find the associated values:
 - **ARM_CLIENT_SECRET:** app-name Secret Key (under Azure Active Directory --> App registrations --> All applications --> app-name --> Certificates & secrets)
 - **ARM_TENANT_ID:** Active Directory tenant ID (under Azure Active Directory)
 - **TF_VAR_thehive_key_vault_certificate_secret_id:** thehive certificate secret ID (under Keyvault --> Certificates --> thehive-certificate --> CURRENT VERSION )
+- **TF_VAR_cortex_key_vault_certificate_secret_id:** cortex certificate secret ID (under Keyvault --> Certificates --> cortex-certificate --> CURRENT VERSION )
 
 ---
-Terraform compatibility: v1.x
+Terraform compatibility: v0.12.x

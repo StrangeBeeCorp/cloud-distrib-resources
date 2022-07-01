@@ -21,6 +21,6 @@ resource "azurerm_key_vault_access_policy" "secops-certificate-managed-identity-
   object_id = azurerm_user_assigned_identity.secops-certificate-managed-identity.principal_id 
 
   secret_permissions = [
-    "Get",
+    "get",
   ]
 }

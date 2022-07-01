@@ -30,17 +30,17 @@ resource "azurerm_network_interface" "secops-nic-bastion" {
 
 # Create bastion host VM instance
 resource "azurerm_virtual_machine" "secops-bastion-instance" {
-  name                   = var.secops-bastion-computer-name
-  location               = var.secops-location 
-  resource_group_name    = var.secops-resource-group-name
+  name                = var.secops-bastion-computer-name
+  location            = var.secops-location 
+  resource_group_name = var.secops-resource-group-name
   vm_size                = var.secops-bastion-vm-size
-  network_interface_ids  = [azurerm_network_interface.secops-nic-bastion.id]
+  network_interface_ids = [azurerm_network_interface.secops-nic-bastion.id]
   delete_os_disk_on_termination = true
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
   

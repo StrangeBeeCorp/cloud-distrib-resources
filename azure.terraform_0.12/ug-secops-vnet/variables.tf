@@ -115,66 +115,6 @@ variable "cortex_key_vault_certificate_secret_id" {
   description = "Secret ID for Cortex certificate - set as env variable, not in code"
 }
 
-variable "secops-th-data-disk-name" {
-  type = string
-  description = "secops-th-data-disk-name"  
-}
-
-variable "secops-th-data-disk-type" {
-  type = string
-  description = "secops-th-data-disk-type"
-}
-
-variable "secops-th-data-disk-size" {
-  type = string
-  description = "secops-th-data-disk-size"
-}
-
-variable "secops-th-docker-disk-name" {
-  type = string
-  description = "secops-th-docker-disk-name"
-}
-
-variable "secops-th-docker-disk-type" {
-  type = string
-  description = "secops-th-docker-disk-type"
-}
-
-variable "secops-th-docker-disk-size" {
-  type = string
-  description = "secops-th-docker-disk-size"
-}
-
-variable "secops-cortex-data-disk-name" {
-  type = string
-  description = "secops-cortex-data-disk-name"
-}
-
-variable "secops-cortex-data-disk-type" {
-  type = string
-  description = "secops-cortex-data-disk-type"
-}
-
-variable "secops-cortex-data-disk-size" {
-  type = string
-  description = "secops-cortex-data-disk-size"
-}
-
-variable "secops-cortex-docker-disk-name" {
-  type = string
-  description = "secops-cortex-docker-disk-name"
-}
-
-variable "secops-cortex-docker-disk-type" {
-  type = string
-  description = "secops-cortex-docker-disk-type"
-}
-
-variable "secops-cortex-docker-disk-size" {
-  type = string
-  description = "secops-cortex-docker-disk-size"
-}
-
 # variable "" {
 #   type = string
 #   description = ""

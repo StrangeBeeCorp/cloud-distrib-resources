@@ -27,29 +27,15 @@ secops-private-zone-name  = "private.mydomain.com"
 # Bastion
 secops-bastion-computer-name = "secops-bastion"
 secops-bastion-vm-size = "Standard_B2s"
-secops-bastion-admin-user = "azureuser"
+secops-bastion-admin-user = "ubuntu"
 secops-bastion-public-key-path = "~/.ssh/id_rsa.pub"
 # myNVA
 secops-myNVA-computer-name = "secops-myNVA"
 secops-myNVA-vm-size = "Standard_DS2_v2"
-secops-myNVA-admin-user = "azureuser"
+secops-myNVA-admin-user = "ubuntu"
 secops-myNVA-public-key-path = "~/.ssh/id_rsa.pub"
 # Common: managed OS Disk type - possible values are either Standard_LRS, StandardSSD_LRS, Premium_LRS
 secops-os-disk-type   = "Standard_LRS"
-
-# Data disks for TheHive and Cortex instances
-secops-th-data-disk-name = "secops-thehive-data-disk" 
-secops-th-data-disk-type = "StandardSSD_LRS" 
-secops-th-data-disk-size = "16" 
-secops-th-docker-disk-name = "secops-thehive-docker-disk" 
-secops-th-docker-disk-type = "StandardSSD_LRS" 
-secops-th-docker-disk-size = "32" 
-secops-cortex-data-disk-name = "secops-cortex-data-disk" 
-secops-cortex-data-disk-type = "StandardSSD_LRS" 
-secops-cortex-data-disk-size = "16" 
-secops-cortex-docker-disk-name = "secops-cortex-docker-disk" 
-secops-cortex-docker-disk-type = "StandardSSD_LRS" 
-secops-cortex-docker-disk-size = "32" 
 
 # IP filtering whitelist 
 secops-users = ["1.2.3.4/32","1.2.3.4/32"]

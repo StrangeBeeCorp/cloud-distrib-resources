@@ -66,8 +66,8 @@ resource "azurerm_virtual_machine" "secops-myNVA-instance" {
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
   

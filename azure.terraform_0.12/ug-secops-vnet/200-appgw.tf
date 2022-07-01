@@ -18,13 +18,16 @@ locals {
   http_setting_name_thehive         = "secops-http-thehive"
   http_setting_name_cortex          = "secops-http-cortex"
   listener_name_thehive             = "secops-thehive-listener"
+  listener_name_cortex              = "secops-cortex-listener"
   request_routing_rule_name_thehive = "secops-thehive-rule"
+  request_routing_rule_name_cortex  = "secops-cortex-rule"
   frontend_port_name                = "secops-appgw-port"
   frontend_ip_configuration_name    = "secops-appgw-public-ip"
   thehive_ssl_certificate_name      = "secops-thehive-certificate"
+  cortex_ssl_certificate_name       = "secops-cortex-certificate"
 }
 
-# Create the application gateway
+# Create the application gateway ( 1 frontend-ip / 2 backends / 2 listeners / 2 rules / 2 certificates / 1 managed identity )
 resource "azurerm_application_gateway" "secops-appgw" {
   name                = "secops-appgw"
   resource_group_name = var.secops-resource-group-name
@@ -56,6 +59,7 @@ resource "azurerm_application_gateway" "secops-appgw" {
   frontend_port {
     name  = local.frontend_port_name
     port  = 443
+    #port = 80
   }
   
   # Specify the public ip address for the appgw
@@ -67,71 +71,57 @@ resource "azurerm_application_gateway" "secops-appgw" {
   # Create thehive backend address pool
   backend_address_pool {
     name           = local.backend_address_pool_name_thehive
+    #fqdns         = ["thehive.${var.secops-private-zone-name}"]
   }
 
   # Create cortex backend address pool
    backend_address_pool {
     name           = local.backend_address_pool_name_cortex
-  }
-
-  # Create TheHive probe
-  probe {
-    name = "thehive_probe"
-    protocol = "Http"
-    host = "127.0.0.1"
-    path = "/thehive/api/status"
-    interval = 30
-    timeout = 60
-    unhealthy_threshold = 5
-    port = 9000
-  }
-
-  # Create Cortex probe
-  probe {
-    name = "cortex_probe"
-    protocol = "Http"
-    host = "127.0.0.1"
-    path = "/cortex/api/status"
-    interval = 30
-    timeout = 60
-    unhealthy_threshold = 5
-    port = 9001
+    #fqdns         = ["cortex.${var.secops-private-zone-name}"]
   }
 
   # Create thehive backend http block 
   backend_http_settings {
     name                  = local.http_setting_name_thehive
-    cookie_based_affinity = "Disabled"
+    cookie_based_affinity = "Enabled"
     port                  = 9000
     protocol              = "Http"
     request_timeout       = 60
-    probe_name            = "thehive_probe"
   }
   
   # Create cortex backend http block 
   backend_http_settings {
     name                  = local.http_setting_name_cortex
-    cookie_based_affinity = "Disabled"
+    cookie_based_affinity = "Enabled"
     port                  = 9001
     protocol              = "Http"
     request_timeout       = 60
-    probe_name            = "cortex_probe"
   }
   
-
   # Create thehive listener
   http_listener {
     name                           = local.listener_name_thehive
     frontend_ip_configuration_name = local.frontend_ip_configuration_name
     frontend_port_name             = local.frontend_port_name
     protocol                       = "Https"
+    #protocol                       = "Http"
     host_name                      = "thehive.${var.secops-dns-zone-name}"
     ssl_certificate_name           = local.thehive_ssl_certificate_name
+  }
+  
+  # Create cortex listener
+  http_listener {
+    name                           = local.listener_name_cortex
+    frontend_ip_configuration_name = local.frontend_ip_configuration_name
+    frontend_port_name             = local.frontend_port_name
+    protocol                       = "Https"
+    #protocol                       = "Http"
+    host_name                      = "cortex.${var.secops-dns-zone-name}"
+    ssl_certificate_name           = local.cortex_ssl_certificate_name
   }
 
   # Managed identity block responsible for importing the certificates from key vault
   identity { 
-    type = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.secops-certificate-managed-identity.id]
   }
 
@@ -140,35 +130,29 @@ resource "azurerm_application_gateway" "secops-appgw" {
     name= local.thehive_ssl_certificate_name
     key_vault_secret_id = var.thehive_key_vault_certificate_secret_id
   }
-  
-  # Create TheHive url_path_map
-  url_path_map {
-    name = "thehive_url_path_map"
-    default_backend_address_pool_name = local.backend_address_pool_name_thehive
-    default_backend_http_settings_name = local.http_setting_name_thehive
 
-    path_rule {
-      name = "thehive_path_rule"
-      paths = ["/thehive", "/thehive/*"]
-      backend_address_pool_name = local.backend_address_pool_name_thehive
-      backend_http_settings_name = local.http_setting_name_thehive
-    }
-
-    path_rule {
-      name = "cortex_path_rule"
-      paths = ["/cortex", "/cortex/*"]
-      backend_address_pool_name = local.backend_address_pool_name_cortex
-      backend_http_settings_name = local.http_setting_name_cortex
-    }
+  # Import the ssl certificate for cortex from key vault
+  ssl_certificate {
+    name= local.cortex_ssl_certificate_name
+    key_vault_secret_id = var.cortex_key_vault_certificate_secret_id
   }
-
+  
   # Create thehive routing rule block 
   request_routing_rule {
     name                       = local.request_routing_rule_name_thehive
-    rule_type                  = "PathBasedRouting"
-    priority                   = 100 
+    rule_type                  = "Basic"
     http_listener_name         = local.listener_name_thehive
-    url_path_map_name          = "thehive_url_path_map"
+    backend_address_pool_name  = local.backend_address_pool_name_thehive
+    backend_http_settings_name = local.http_setting_name_thehive
+  }
+
+  # Create cortex routing rule block 
+  request_routing_rule {
+    name                       = local.request_routing_rule_name_cortex
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name_cortex
+    backend_address_pool_name  = local.backend_address_pool_name_cortex
+    backend_http_settings_name = local.http_setting_name_cortex
   }
 
   tags = {
@@ -192,4 +176,16 @@ resource "azurerm_dns_a_record" "secops-dns-record-appgw-thehive" {
     Name= "secops-dns-record-appgw-thehive"
   }
 
+}
+
+# Create Cortex DNS record, Type "A",  in the public zone (cortex.mydomain.com)
+resource "azurerm_dns_a_record" "secops-dns-record-appgw-cortex" {
+  name                = "cortex"
+  zone_name           = var.secops-dns-zone-name
+  resource_group_name  = var.secops-dns-resource-group-name
+  ttl                 = 300
+  target_resource_id  = azurerm_public_ip.secops-appgw-public-ip.id
+  tags = {
+    Name= "secops-dns-record-appgw-cortex"
+  }
 }

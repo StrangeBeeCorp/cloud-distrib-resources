@@ -4,7 +4,7 @@ This code will work out of the box with the reference *SecOps VPC* created with 
 
 Our sample code can handle two use-cases:
 
-+ Deploying brand new **TheHive and Cortex instances** with empty databases - this is useful for an initial deployments.
++ Deploying brand new **TheHive and Cortex instances** with empty databases - this is useful for an initial deployment.
 + Deploying **TheHive and Cortex instances** while restoring existing databases - this is to be used for all other use-cases: AMI updates, instance type upgrades or downgrades, database restore, etc.
 
 **To switch between both use-cases, simply update the `secops_thehive_init` and/or `secops_cortex_init` variable values between `true` and `false` (`true` being the empty database, initialisation use-case).**
