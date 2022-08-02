@@ -110,10 +110,6 @@ variable "thehive_key_vault_certificate_secret_id" {
   type = string
   description = "Secret ID for TheHive certificate - set as env variable, not in code"
 }
-variable "cortex_key_vault_certificate_secret_id" {
-  type = string
-  description = "Secret ID for Cortex certificate - set as env variable, not in code"
-}
 
 variable "secops-th-data-disk-name" {
   type = string
