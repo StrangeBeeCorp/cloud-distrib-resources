@@ -14,8 +14,9 @@ variable "secops_region" {
 
 variable "strangebee_account_number" {
   type = string
-  default = "339624944083"
-  description = "StrangeBee AWS account number to get AMIs from"
+  # default = "339624944083"
+  default = "679593333241"
+  description = "AWS marketplace account number to get AMIs from"
 }
 
 

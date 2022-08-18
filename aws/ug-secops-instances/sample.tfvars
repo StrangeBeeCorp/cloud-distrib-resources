@@ -29,7 +29,7 @@ secops_thehive_init = true # true = empty database, false = restore existing dat
 secops_cortex_init = true # true = empty database, false = restore existing data
 secops_instance-type_thehive = "m5.xlarge"
 secops_instance-type_cortex = "m5.xlarge"
-secops_thehive-ami-name = "TheHive5_*" 
+secops_thehive-ami-name = "TheHive5-ES_*" 
 secops_cortex-ami-name = "Cortex3_*" 
 secops_thehive_data-rpo = "*"
 secops_cortex_data-rpo = "*"

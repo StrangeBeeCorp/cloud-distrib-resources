@@ -109,7 +109,7 @@ data "aws_ebs_volume" "secops-thehive-data-volume" {
 
   filter {
     name   = "tag:SourceInstance"
-    values = ["${var.secops_vpc_name}-${var.secops_thehive_dns-record}"]
+    values = ["${var.secops_thehive_instance_name}"]
   }
 
   filter {
@@ -130,7 +130,7 @@ data "aws_ebs_volume" "secops-thehive-attachments-volume" {
 
   filter {
     name   = "tag:SourceInstance"
-    values = ["${var.secops_vpc_name}-${var.secops_thehive_dns-record}"]
+    values = ["${var.secops_thehive_instance_name}"]
   }
 
   filter {
@@ -151,7 +151,7 @@ data "aws_ebs_volume" "secops-thehive-index-volume" {
 
   filter {
     name   = "tag:SourceInstance"
-    values = ["${var.secops_vpc_name}-${var.secops_thehive_dns-record}"]
+    values = ["${var.secops_thehive_instance_name}"]
   }
 
   filter {
@@ -205,7 +205,7 @@ data "aws_ebs_volume" "secops-cortex-data-volume" {
 
   filter {
     name   = "tag:SourceInstance"
-    values = ["${var.secops_vpc_name}-${var.secops_cortex_dns-record}"]
+    values = ["${var.secops_cortex_instance_name}"]
   }
 
   filter {
@@ -226,7 +226,7 @@ data "aws_ebs_volume" "secops-cortex-docker-volume" {
 
   filter {
     name   = "tag:SourceInstance"
-    values = ["${var.secops_vpc_name}-${var.secops_cortex_dns-record}"]
+    values = ["${var.secops_cortex_instance_name}"]
   }
 
   filter {
