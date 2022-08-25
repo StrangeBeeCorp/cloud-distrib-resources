@@ -1,27 +1,15 @@
 #cloud-config 
-disk_setup:
-    - /dev/nvme0n1:
-          table_type: 'mbr'
-          layout: True
-          overwrite: False
-    - /dev/nvme1n1:
-          table_type: 'mbr'
-          layout: True
-          overwrite: False
-    - /dev/nvme2n1:
-          table_type: 'mbr'
-          layout: True
-          overwrite: False
+bootcmd:
+    - [ /usr/sbin/nvme-to-block-mapping ]
 fs_setup:
     - filesystem: ext4
-      device: '/dev/nvme0n1'
+      device: '/dev/sdh'
       partition: auto
+      overwrite: false
     - filesystem: ext4
-      device: '/dev/nvme1n1'
+      device: '/dev/sdi'
       partition: auto
-    - filesystem: ext4
-      device: '/dev/nvme2n1'
-      partition: auto
+      overwrite: false
 manage_etc_hosts: localhost
 hostname: ${hostname}
 runcmd:
