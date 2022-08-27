@@ -48,7 +48,7 @@ resource "azurerm_virtual_machine" "secops-cortex-instance" {
     publisher = "strangebee1595948424730"
     offer     = var.secops-thehive-product
     sku       = "thehive5"
-    version   = "latest"
+    version   = var.secops-thehive-version
   }
   plan {
     name = "thehive5"
@@ -67,7 +67,7 @@ resource "azurerm_virtual_machine" "secops-cortex-instance" {
   os_profile {
     computer_name  = var.secops-cortex-computer-name
     admin_username = var.secops-admin-user  
-    custom_data = templatefile("files/cloud-config.tpl", {
+    custom_data = templatefile("${path.module}/files/cloud-config.tpl", {
       installthehive = "0",
       installcortex = "1",
       thehivebaseurl = "${var.secops-th-baseurl}",

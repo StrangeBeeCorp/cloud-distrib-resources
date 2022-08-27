@@ -140,6 +140,12 @@ variable "secops-thehive-product" {
   default = "thehive-5"
 }
 
+variable "secops-thehive-version" {
+  type = string
+  description = "secops-thehive-version"
+  default = "latest"
+}
+
 variable "secops-th-baseurl" {
   type = string
   description = "secops-th-baseurl"

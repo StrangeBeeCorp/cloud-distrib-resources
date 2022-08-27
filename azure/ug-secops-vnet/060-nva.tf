@@ -81,7 +81,7 @@ resource "azurerm_virtual_machine" "secops-myNVA-instance" {
   os_profile {
     computer_name  = var.secops-myNVA-computer-name
     admin_username = var.secops-myNVA-admin-user  
-    custom_data = file("files/nva-nat-cloud-config.yaml")
+    custom_data = file("${path.module}/files/nva-nat-cloud-config.yaml")
   }
   os_profile_linux_config {
     disable_password_authentication = true
