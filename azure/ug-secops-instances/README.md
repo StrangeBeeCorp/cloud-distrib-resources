@@ -48,24 +48,24 @@ The default username for both the bastion host and TheHive instance is `azureuse
 
 ```
 Host bastion
-				HostName 1.2.3.4 (public ip)
-				User azureuser
-				Port 22
-				IdentityFile ~/.ssh/id_rsa_private_key_for_bastion
+	HostName 1.2.3.4 (public ip)
+	User azureuser
+	Port 22
+	IdentityFile ~/.ssh/id_rsa_private_key_for_bastion
 
 Host thehive
-				HostName thehive.secops.cloud
-				User azureuser
-				Port 22
-				ProxyJump bastion
-				IdentityFile ~/.ssh/id_rsa_private_key_for_thehive
+	HostName thehive.secops.cloud
+	User azureuser
+	Port 22
+	ProxyJump bastion
+	IdentityFile ~/.ssh/id_rsa_private_key_for_thehive
 
 Host cortex
-				HostName cortex.secops.cloud
-				User azureuser
-				Port 22
-				ProxyJump bastion
-				IdentityFile ~/.ssh/id_rsa_private_key_for_cortex
+	HostName cortex.secops.cloud
+	User azureuser
+	Port 22
+	ProxyJump bastion
+	IdentityFile ~/.ssh/id_rsa_private_key_for_cortex
 ```
 
 > *We use the secops.cloud domain as an example but the best security practice is to use a domain name you own even for private DNS resolution in split-horizon.*
