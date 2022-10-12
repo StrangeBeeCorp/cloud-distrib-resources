@@ -48,6 +48,9 @@ write_files:
 manage_etc_hosts: localhost
 hostname: ${hostname}
 runcmd:
+    - [ sed, -i, 's/^AllowTcpForwarding.*/AllowTcpForwarding yes/', /etc/ssh/sshd_config ]
+    - [ systemctl, daemon-reload ]
+    - [ systemctl, restart, --no-block, sshd.service ]
     - [ /opt/strangebee/ops/scripts/ops-launch.sh, "-t ${installthehive}", "-c ${installcortex}", "-p /dev/sdh", "-d /dev/sdi", "-l 1" ]
     # - [ /opt/strangebee/ops/scripts/ops-migrate.sh, "-t ${installthehive}", "-c ${installcortex}", "-p /dev/sdh", "-d /dev/sdi", "-x /dev/sdj", "-y /dev/sdk", "-z /dev/sdl", "-l 1" ]
     
