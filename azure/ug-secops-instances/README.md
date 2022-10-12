@@ -110,26 +110,26 @@ The same configuration can be achieved by updating your `SSH config` file to inc
 
 ```
 Host bastion
-				HostName 1.2.3.4 (public ip)
-				User azureuser
-				Port 22
-				IdentityFile ~/.ssh/id_rsa_private_key_for_bastion
+	HostName 1.2.3.4 (public ip)
+	User azureuser
+	Port 22
+	IdentityFile ~/.ssh/id_rsa_private_key_for_bastion
 
 Host thehive
-				HostName thehive.secops.cloud
-				User azureuser
-				Port 22
-				ProxyJump bastion
-				IdentityFile ~/.ssh/id_rsa_private_key_for_thehive
-                LocalForward 46461 localhost:4646
+	HostName thehive.secops.cloud
+	User azureuser
+	Port 22
+	ProxyJump bastion
+	IdentityFile ~/.ssh/id_rsa_private_key_for_thehive
+	LocalForward 46461 localhost:4646
 
 Host cortex
-				HostName cortex.secops.cloud
-				User azureuser
-				Port 22
-				ProxyJump bastion
-				IdentityFile ~/.ssh/id_rsa_private_key_for_cortex
-                LocalForward 46462 localhost:4646
+	HostName cortex.secops.cloud
+	User azureuser
+	Port 22
+	ProxyJump bastion
+	IdentityFile ~/.ssh/id_rsa_private_key_for_cortex
+	LocalForward 46462 localhost:4646
 ```
 
 > Note: Setting up an SSH tunnel between your computer and the remote instances requires that tunnelling and TCP forwarding be allowed on all hosts involved in the process. When you use the sample Terraform code in this repository, this is possible OOTB.
