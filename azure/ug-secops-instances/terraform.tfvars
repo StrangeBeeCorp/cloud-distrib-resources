@@ -29,8 +29,8 @@ secops-admin-user = "azureuser"
 secops-public-key-path = "~/.ssh/id_rsa.pub"
 
 # Image versions
-secops-image-th-version = "strangebee/thehive:5.0.14-1"
-secops-image-cortex-version = "thehiveproject/cortex:3.1.6-1-withdeps"
+secops-image-th-version = "strangebee/thehive:5.0.17-1"
+secops-image-cortex-version = "thehiveproject/cortex:3.1.7-1-withdeps"
 secops-image-cassandra-version = "cassandra:4.0.6"
 secops-image-elasticsearch-version = "elasticsearch:7.17.6"
 secops-image-nginx-version = "nginx:1.23.1"
@@ -57,4 +57,4 @@ secops-cortex-nsg-name = "secops-cortex-nsg"
 
 # Overload Azure marketplace product version to use specific version since "latest" is not based on publishing date
 # secops-thehive-version = "latest"
-secops-thehive-version = "5.0.121"
+secops-thehive-version = "5.0.171"
