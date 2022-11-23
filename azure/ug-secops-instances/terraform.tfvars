@@ -29,10 +29,10 @@ secops-admin-user = "azureuser"
 secops-public-key-path = "~/.ssh/id_rsa.pub"
 
 # Image versions
-secops-image-th-version = "strangebee/thehive:5.0.18-1"
+secops-image-th-version = "strangebee/thehive:5.0.19-1"
 secops-image-cortex-version = "thehiveproject/cortex:3.1.7-1-withdeps"
 secops-image-cassandra-version = "cassandra:4.0.7"
-secops-image-elasticsearch-version = "elasticsearch:7.17.6"
+secops-image-elasticsearch-version = "elasticsearch:7.17.7"
 secops-image-nginx-version = "nginx:1.23.2"
 
 # Managed OS Disk type - possible values are either Standard_LRS, StandardSSD_LRS, Premium_LRS
