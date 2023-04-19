@@ -88,6 +88,8 @@ It can sometimes be useful to access the Nomad UI to control the running applica
 
 Since we are running Nomad in a standalone mode, without ACLs being implemented, we do not automatically expose the UI outside the instance itself (in other words, it will not be reachable from the Application Gateway using our sample Terraform code).
 
+> Note: Starting with image version 5.1.4, basic Nomad ACLs have been enabled. The default anonymous access provides some `read` permissions and full access is possible using the `admin` token. The admin token is automatically created the first time the Nomad ACLs are bootstraped and is stored under `/opt/thp_data/nomad/nomad.mgmt`. This token is stored on the persistent data volume and will be reused when updating (replacing) the instance while keeping the same persistent data volume.
+
 If you need occasional Nomad UI access, you can simply set a temporary SSH tunnel to the instance and forward a local port to the UI (which listens locally on port 4646 on each TheHive / Cortex instance).
 
 > Note: if you wish to access the Nomad UI for multiple instances this way, you must use a different local port for each instance. 
@@ -136,7 +138,7 @@ Host cortex
 
 ## Updating TheHive and Cortex over time
 
-Once your instances are deployed, you can easily update TheHive and / or Cortex. In a nutshell, the process consists in replacing the image versions in a variable file and restarting each application stack. This process it detailed at length in [this dedicated documentation page](docs/upgrade.md).
+Once your instances are deployed, you can easily update TheHive and / or Cortex. In a nutshell, the process consists in replacing the image versions in a variable file and restarting the application stack on each instance. This process it detailed at length in [this dedicated documentation page](docs/upgrade.md).
 
 ---
 Terraform compatibility: v1.x

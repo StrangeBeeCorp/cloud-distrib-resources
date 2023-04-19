@@ -12,14 +12,14 @@ It does not cover operating system level updates such as Ubuntu patches, Docker 
 **Note: All actions on the instances are to be performed as root**
 
 - Stop the running Nomad job 
->ex: `$ nomad job stop thehive-job`
+>ex: `$ . /opt/strangebee/ops/scripts/ops-common.cfg && stop_nomad_job thehive-job`
 - Backup your Nomad job specifications and var files 
 >ex: `$ /opt/strangebee/ops/scripts/ops-config-backup.sh -n nomad-jobs -f /opt/thp_data/nomad/jobs/`
 - Backup / snapshot your instance persistent data volume (using the Azure console or CLI)
 - Edit the Nomad job var file matching the running job on the instance and update the image versions you wish to use from now on.
 >All job specifications and var files are located under `/opt/thp_data/nomad/jobs` ex: `$ vi /opt/thp_data/nomad/jobs/thehive-job.vars`
 - Schedule the Nomad job (don't forget to set the matching var file)
->ex: `$ nomad job run -var-file="/opt/thp_data/nomad/jobs/thehive-job.vars" /opt/thp_data/nomad/jobs/thehive-job.nomad`
+>ex: `$ . /opt/strangebee/ops/scripts/ops-common.cfg && run_nomad_job thehive-job`
 
 ---
 ## Context
@@ -104,27 +104,11 @@ Before performing configuration and data backups, we will stop the running Nomad
 
 >Note: **All actions on the instances during the entire update process are to be performed as root**. Once connected to the instance, you can switch to the root context using the `sudo su` command.
 
-`$ nomad job stop thehive-job`
+`$ . /opt/strangebee/ops/scripts/ops-common.cfg && stop_nomad_job thehive-job`
 
 ```
-==> 2022-10-11T13:56:54Z: Monitoring evaluation "a62af51b"
-    2022-10-11T13:56:54Z: Evaluation triggered by job "thehive-job"
-    2022-10-11T13:56:55Z: Evaluation within deployment: "5a98c88d"
-    2022-10-11T13:56:55Z: Evaluation status changed: "pending" -> "complete"
-==> 2022-10-11T13:56:55Z: Evaluation "a62af51b" finished with status "complete"
-==> 2022-10-11T13:56:55Z: Monitoring deployment "5a98c88d"
-  ✓ Deployment "5a98c88d" successful
-
-    2022-10-11T13:56:55Z
-    ID          = 5a98c88d
-    Job ID      = thehive-job
-    Job Version = 0
-    Status      = successful
-    Description = Deployment completed successfully
-
-    Deployed
-    Task Group     Desired  Placed  Healthy  Unhealthy  Progress Deadline
-    thehive-group  1        1       1        0          2022-10-10T11:18:10Z
+[INFO] Stopping Nomad job: thehive-job
+[INFO] Fetching Nomad ACL management token
 ```
 
 You can check the job is now stopped:
@@ -133,7 +117,7 @@ You can check the job is now stopped:
 
 ```
 ID           Type     Priority  Status          Submit Date
-thehive-job  service  50        dead (stopped)  2022-10-10T11:01:19Z
+thehive-job  service  50        dead (stopped)  ***
 ```
 
 ### Backup existing Nomad job specifications and variable files
@@ -200,22 +184,22 @@ To update the image versions, we need to edit the variables file:
 
 ```
 thehivecontext = "/thehive"
-image_cassandra = "cassandra:4.0.5"
-image_elasticsearch = "elasticsearch:7.17.5"
+image_cassandra = "cassandra:4.0.6"
+image_elasticsearch = "elasticsearch:7.17.6"
 image_nginx = "nginx:1.23.1"
-image_thehive = "strangebee/thehive:5.0.12-1"
+image_thehive = "strangebee/thehive:5.0.16-1"
 ```
 
-Our instance was running TheHive v5.0.12 along with Cassandra v4.0.5 and ElasticSearch v7.17.5. 
+Our instance was running TheHive v5.0.16 along with Cassandra v4.0.6 and ElasticSearch v7.17.6. 
 
 Let's update the image versions (this is just an example, use the actual versions you wish to deploy):
 
 ```
 thehivecontext = "/thehive"
-image_cassandra = "cassandra:4.0.6"
-image_elasticsearch = "elasticsearch:7.17.6"
-image_nginx = "nginx:1.23.1"
-image_thehive = "strangebee/thehive:5.0.16-1"
+image_cassandra = "cassandra:4.1.0"
+image_elasticsearch = "elasticsearch:7.17.9"
+image_nginx = "nginx:1.24.0"
+image_thehive = "strangebee/thehive:5.1.4-1"
 ```
 
 > We recommend never using the `:latest` tag and always using specific image versions to avoid problems or inconsistencies.
@@ -233,35 +217,18 @@ You can find the available image versions for each component at the following li
 > **Important note** TheHive v5 is not yet compatible with ElasticSearch v8.x - only the 7.x versions are supported for the time being.
 
 You can find the changelog for TheHive and Cortex at the following links:
-- [TheHive changelog](https://docs.strangebee.com/thehive/release-notes/release-notes-5.0/)
+- [TheHive changelog](https://docs.strangebee.com/thehive/release-notes/release-notes-5.1/)
 - [Cortex changelog](https://github.com/TheHive-Project/Cortex/releases)
 
 ## Update step 3/3: Schedule the Nomad job
 
 You can now schedule the Nomad job to start TheHive and / or Cortex. Do not forget to set the variable file we just modified when running the job, otherwise it will fail.
 
-`$ nomad job run -var-file="/opt/thp_data/nomad/jobs/thehive-job.vars" /opt/thp_data/nomad/jobs/thehive-job.nomad`
+`$ . /opt/strangebee/ops/scripts/ops-common.cfg && run_nomad_job thehive-job`
 
 ```
-==> 2022-10-11T13:59:26Z: Monitoring evaluation "e099c45a"
-    2022-10-11T13:59:26Z: Evaluation triggered by job "thehive-job"
-    2022-10-11T13:59:27Z: Evaluation within deployment: "8a9cb4fe"
-    2022-10-11T13:59:27Z: Allocation "5081c806" created: node "8360ffa7", group "thehive-group"
-    2022-10-11T13:59:27Z: Evaluation status changed: "pending" -> "complete"
-==> 2022-10-11T13:59:27Z: Evaluation "e099c45a" finished with status "complete"
-==> 2022-10-11T13:59:27Z: Monitoring deployment "8a9cb4fe"
-  ✓ Deployment "8a9cb4fe" successful
-
-    2022-10-11T14:01:37Z
-    ID          = 8a9cb4fe
-    Job ID      = thehive-job
-    Job Version = 2
-    Status      = successful
-    Description = Deployment completed successfully
-
-    Deployed
-    Task Group     Desired  Placed  Healthy  Unhealthy  Progress Deadline
-    thehive-group  1        1       1        0          2022-10-11T14:16:35Z
+[INFO] Scheduling Nomad job: thehive-job
+[INFO] Fetching Nomad ACL management token
 ```
 
 To check the job is now running again:
@@ -270,7 +237,7 @@ To check the job is now running again:
 
 ```
 ID           Type     Priority  Status   Submit Date
-thehive-job  service  50        running  2022-10-11T13:59:26Z
+thehive-job  service  50        running  ***
 ```
 
 To check the updated TheHive version:
@@ -279,7 +246,7 @@ To check the updated TheHive version:
 
 ```
 [INFO] Checking local reverse proxy on /thehive/api/status
-{"versions":{"Scalligraph":"5.0.16-1","TheHive":"5.0.16-1","Play":"2.8.13"},"config":{"protectDownloadsWith":"malware","authType":["session","local","key"],"capabilities":["changePassword","setPassword","authByKey","mfa"],"ssoAutoLogin":false,"pollingDuration":1000,"freeTagDefaultColour":"#000000"}}
+{"versions":{"Scalligraph":"5.1.4-1","TheHive":"5.1.4-1","Play":"2.8.x"},"config":{"protectDownloadsWith":"malware","authType":["session","local","key"],"capabilities":["changePassword","setPassword","authByKey","mfa"],"ssoAutoLogin":false,"pollingDuration":1000,"freeTagDefaultColour":"#000000"}}
 ```
 
 To check the updated Cortex version:
