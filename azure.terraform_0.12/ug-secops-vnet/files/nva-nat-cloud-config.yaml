@@ -1,9 +1,0 @@
-#cloud-config 
-package_update: true
-packages:
- - iptables-persistent
-runcmd:
-    - sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf  
-    - iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 
-    - /etc/init.d/procps restart  
-    - iptables-save > /etc/iptables/rules.v4
