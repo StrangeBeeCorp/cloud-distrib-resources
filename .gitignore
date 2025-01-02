@@ -33,3 +33,4 @@ override.tf.json
 *.local.tfvars
 *.auto.tfvars
 *.terraform.lock.hcl
+*.terraform

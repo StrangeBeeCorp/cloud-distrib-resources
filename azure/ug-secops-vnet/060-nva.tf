@@ -24,11 +24,11 @@ resource "azurerm_network_interface" "secops-nic-wan-myNVA" {
     public_ip_address_id          = azurerm_public_ip.secops-myNVA-public-ip.id
   }
   
-  # Enable IP forwarding and accelerated networking on the wan network interface card
-  enable_ip_forwarding = true 
-  enable_accelerated_networking = true
+  # Enable IP forwarding and accelerated networking on the WAN network interface card
+  ip_forwarding_enabled            = true 
+  accelerated_networking_enabled   = true
   tags = {
-    Name= "secops-nic-wan-myNVA"
+    Name = "secops-nic-wan-myNVA"
   }
 }
 
@@ -44,10 +44,10 @@ resource "azurerm_network_interface" "secops-nic-lan-myNVA" {
     private_ip_address_allocation = "Dynamic"
   }
 
-  # Enable accelerated networking on the lan network interface card
-  enable_accelerated_networking = true
+  # Enable accelerated networking on the LAN network interface card
+  accelerated_networking_enabled    = true  
   tags = {
-    Name= "secops-nic-lan-myNVA"
+    Name = "secops-nic-lan-myNVA"
   }
 }
 

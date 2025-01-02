@@ -3,22 +3,22 @@ resource "azurerm_route_table" "secops-route-table" {
   name                          = "secops-route-table"
   resource_group_name           = var.secops-resource-group-name
   location                      = var.secops-location
-  disable_bgp_route_propagation = false
+  bgp_route_propagation_enabled = true
 
   route {
     name           = "ToMyNVARoute"
     address_prefix = "0.0.0.0/0"
     next_hop_type  = "VirtualAppliance"
-    next_hop_in_ip_address = azurerm_network_interface.secops-nic-lan-myNVA.private_ip_address
+    next_hop_in_ip_address = azurerm_network_interface.secops-nic-lan-myNVA.ip_configuration[0].private_ip_address
   }
 
   tags = {
-   NAME= "secops-route-table"
+    Name = "secops-route-table"
   }
 
   depends_on = [
-   azurerm_subnet.secops-backend-private-subnet,
-   azurerm_virtual_machine.secops-myNVA-instance
+    azurerm_subnet.secops-backend-private-subnet,
+    azurerm_virtual_machine.secops-myNVA-instance
   ]
 }
 
