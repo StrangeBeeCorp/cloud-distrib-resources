@@ -64,6 +64,21 @@ resource "azurerm_application_gateway" "secops-appgw" {
     public_ip_address_id = azurerm_public_ip.secops-appgw-public-ip.id
   }
   
+  ssl_policy {
+    policy_type = "Predefined"
+    policy_name = "AppGwSslPolicy20220101S"
+
+    # If you prefer a custom policy (ensure min_protocol_version is TLSv1_2):
+    # policy_type          = "Custom"
+    # min_protocol_version = "TLSv1_2"
+    # cipher_suites        = [
+    #   "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+    #   "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+    #   # ... add other desired TLS 1.2+ ciphers
+    # ]
+
+  }
+
   # Create thehive backend address pool
   backend_address_pool {
     name           = local.backend_address_pool_name_thehive

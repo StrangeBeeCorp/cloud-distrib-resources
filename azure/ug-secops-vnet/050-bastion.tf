@@ -39,11 +39,10 @@ resource "azurerm_virtual_machine" "secops-bastion-instance" {
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server-gen1"
     version   = "latest"
   }
-  
   storage_os_disk {
     name = "secops-os-disk-bastion"
     caching = "ReadWrite"

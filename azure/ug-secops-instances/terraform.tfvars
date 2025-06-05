@@ -29,11 +29,11 @@ secops-admin-user = "azureuser"
 secops-public-key-path = "~/.ssh/id_rsa.pub"
 
 # Image versions
-secops-image-th-version = "strangebee/thehive:5.4.6-1"
+secops-image-th-version = "strangebee/thehive:5.5.3-1"
 secops-image-cortex-version = "thehiveproject/cortex:3.1.8-1-withdeps"
-secops-image-cassandra-version = "cassandra:4.1.7"
-secops-image-elasticsearch-version = "elasticsearch:7.17.26"
-secops-image-nginx-version = "nginx:1.27.3"
+secops-image-cassandra-version = "cassandra:4.1.9"
+secops-image-elasticsearch-version = "elasticsearch:7.17.28"
+secops-image-nginx-version = "nginx:1.27.5"
 
 # Managed OS Disk type - possible values are either Standard_LRS, StandardSSD_LRS, Premium_LRS
 secops-os-disk-type   = "StandardSSD_LRS"
@@ -57,4 +57,4 @@ secops-cortex-nsg-name = "secops-cortex-nsg"
 
 # Overload Azure marketplace product version to use specific version since "latest" is not based on publishing date
 # secops-thehive-version = "latest"
-secops-thehive-version = "5.4.6"
+secops-thehive-version = "5.5.3"
