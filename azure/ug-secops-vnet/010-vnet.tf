@@ -22,12 +22,12 @@ resource "azurerm_private_dns_zone" "secops-private-zone" {
 
 # Link private DNS zone to the virtual network
 resource "azurerm_private_dns_zone_virtual_network_link" "secops-link-private-dns-vnet" {
-  name                  = "secops-link-private-dns-vnet"
-  resource_group_name   = var.secops-resource-group-name
-  private_dns_zone_name = azurerm_private_dns_zone.secops-private-zone.name
-  virtual_network_id    = azurerm_virtual_network.secops-vnet.id
+  name                = "secops-link-private-dns-vnet"
+  private_dns_zone_id = azurerm_private_dns_zone.secops-private-zone.id
+  virtual_network_id  = azurerm_virtual_network.secops-vnet.id
+
   tags = {
-    Name= "secops-link-private-dns-vnet"
+    Name = "secops-link-private-dns-vnet"
   }
 }
 

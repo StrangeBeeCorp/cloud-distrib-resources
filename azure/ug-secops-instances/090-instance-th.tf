@@ -25,14 +25,13 @@ resource "azurerm_network_interface_application_gateway_backend_address_pool_ass
 # Create TheHive DNS record, Type "A", in the private zone
 resource "azurerm_private_dns_a_record" "secops-private-dns-thehive-record" {
   name                = var.secops-th-computer-name
-  zone_name           = data.azurerm_private_dns_zone.secops-private-zone.name
-  resource_group_name = var.secops-resource-group-name
+  private_dns_zone_id = data.azurerm_private_dns_zone.secops-private-zone.id
   ttl                 = 300
   records             = [azurerm_network_interface.secops-nic-thehive.private_ip_address]
-  tags = {
-    Name= "secops-private-dns-thehive-record"
-  }
 
+  tags = {
+    Name = "secops-private-dns-thehive-record"
+  }
 }
 
 # Create thehive VM instance

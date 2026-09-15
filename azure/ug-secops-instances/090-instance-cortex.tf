@@ -22,17 +22,16 @@ resource "azurerm_network_interface_application_gateway_backend_address_pool_ass
   backend_address_pool_id = "${data.azurerm_subscription.current-subscription.id}/resourceGroups/${var.secops-resource-group-name}/providers/Microsoft.Network/applicationGateways/${var.secops-appgw-name}/backendAddressPools/${var.secops-cortex-backend-pool-name}"
 }
 
-# Create Cortex DNS record, Type "A",  in the private zone (cortex.secops.cloud)
+# Create Cortex DNS record, Type "A", in the private zone (cortex.secops.cloud)
 resource "azurerm_private_dns_a_record" "secops-private-dns-cortex-record" {
   name                = var.secops-cortex-computer-name
-  zone_name           = data.azurerm_private_dns_zone.secops-private-zone.name
-  resource_group_name = var.secops-resource-group-name
+  private_dns_zone_id = data.azurerm_private_dns_zone.secops-private-zone.id
   ttl                 = 300
   records             = [azurerm_network_interface.secops-nic-cortex.private_ip_address]
-  tags = {
-    Name= "secops-private-dns-cortex-record"
-  }
 
+  tags = {
+    Name = "secops-private-dns-cortex-record"
+  }
 }
 
 # Create cortex VM instance

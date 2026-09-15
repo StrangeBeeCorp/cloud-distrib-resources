@@ -96,7 +96,7 @@ resource "azurerm_application_gateway" "secops-appgw" {
     host = "127.0.0.1"
     path = "/thehive/api/status"
     interval = 30
-    timeout = 60
+    timeout = 20
     unhealthy_threshold = 5
     port = 9000
   }
@@ -108,7 +108,7 @@ resource "azurerm_application_gateway" "secops-appgw" {
     host = "127.0.0.1"
     path = "/cortex/api/status"
     interval = 30
-    timeout = 60
+    timeout = 20
     unhealthy_threshold = 5
     port = 9001
   }
